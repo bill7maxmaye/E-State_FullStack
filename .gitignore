@@ -4,4 +4,4 @@ server/.env
 
 # Ignore node_modules directories
 client/node_modules/
-server/node_modules/
+api/node_modules/
