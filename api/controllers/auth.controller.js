@@ -1,12 +1,21 @@
 import bcrypt from "bcrypt";
-import { prisma } from "../lib/prisma.js";
-export const register = async (req, res) => {
-  const { name, email, password } = req.body;
+import prisma from "../lib/prisma.js";
 
-  //hash password
-  const hashedpassword = await bcrypt.hash(password, 10);
+export const register = async (req, res) => {
+  const { username, email, password } = req.body;
+
+  // HASH THE PASSWORD
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  console.log(hashedPassword);
+
+  // CREATE A NEW USER AND SAVE TO DB
   const newUser = await prisma.user.create({
-    data: { name, email, hashedpassword },
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+    },
   });
 
   console.log(newUser);
